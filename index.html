@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity URL Shortener</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: #f3f4f6;
+            min-height: 100vh;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
+    
+    <div class="w-full max-w-4xl space-y-10">
+        <!-- Header -->
+        <div class="text-center">
+            <h1 class="text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400 mb-4">
+                Shorten Your Links
+            </h1>
+            <p class="text-lg text-gray-400">Fast, secure, and beautiful URL shortening.</p>
+        </div>
+
+        <!-- Shortener Form -->
+        <div class="glass-panel rounded-2xl p-8 transition-all hover:shadow-2xl">
+            <form id="shorten-form" class="flex flex-col sm:flex-row gap-4">
+                <input 
+                    type="url" 
+                    id="long-url" 
+                    required 
+                    placeholder="Enter your long URL here... (e.g. https://example.com)" 
+                    class="flex-1 rounded-xl bg-gray-800/50 border border-gray-600 px-5 py-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                >
+                <button 
+                    type="submit" 
+                    id="submit-btn"
+                    class="rounded-xl bg-gradient-to-r from-blue-600 to-emerald-600 px-8 py-4 font-semibold text-white hover:from-blue-500 hover:to-emerald-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all active:scale-95 shadow-lg flex items-center justify-center min-w-[140px]"
+                >
+                    Shorten
+                </button>
+            </form>
+            <div id="error-message" class="text-red-400 mt-3 text-sm hidden">Please enter a valid URL.</div>
+            
+            <!-- Result Area -->
+            <div id="result-area" class="mt-6 hidden flex flex-col items-center justify-center py-6 bg-gray-800/30 rounded-xl border border-gray-700/50">
+                <p class="text-gray-400 mb-2">Your shortened URL is ready!</p>
+                <a id="short-url-link" href="#" target="_blank" class="text-2xl font-bold text-blue-400 hover:text-blue-300 transition break-all"></a>
+                <p id="short-url-text" class="hidden"></p>
+            </div>
+        </div>
+
+        <!-- Analytics Dashboard -->
+        <div class="glass-panel rounded-2xl p-8">
+            <h2 class="text-2xl font-semibold mb-6 flex items-center">
+                <svg class="w-6 h-6 mr-2 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                Recent URLs Analytics
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-gray-700 text-gray-400 text-sm tracking-wider uppercase">
+                            <th class="pb-3 px-4 font-medium">Short Link</th>
+                            <th class="pb-3 px-4 font-medium">Original URL</th>
+                            <th class="pb-3 px-4 font-medium text-center">Clicks</th>
+                            <th class="pb-3 px-4 font-medium text-right">Created</th>
+                        </tr>
+                    </thead>
+                    <tbody id="analytics-body" class="divide-y divide-gray-800">
+                        <!-- Rows will be populated by JS -->
+                    </tbody>
+                </table>
+                <div id="loading-analytics" class="py-8 text-center text-gray-500">
+                    Loading analytics...
+                </div>
+                <div id="empty-analytics" class="py-8 text-center text-gray-500 hidden">
+                    No URLs have been created yet.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+</html>
